@@ -1,51 +1,44 @@
 import React from 'react'
-import Home from './components/Home'
-import PersonalDashboard from './components/PersonalDashboard'
-import ProfessionalDashboard from './components/ProfessionalDashboard'
-import { createBrowserRouter, RouterProvider, Link, Outlet } from 'react-router-dom'
 import './App.css'
+import Home from './components/Home.jsx'
+import PersonalDashboard from './components/PersonalDashboard.jsx'
+import ProfessionalDashboard from './components/ProfessionalDashboard.jsx'
+import {BrowserRouter,Routes,Route,Link} from 'react-router-dom'
 
-// ✅ Layout component (fixes white screen issue)
-const Layout = () => {
+const App = () => {
   return (
-    <div>
+    <BrowserRouter>
+
       <nav className='nav'>
         <Link to="/" id="nav-link">Home</Link>
-        <Link to='/PersonalDashboard' id='nav-link'>PersonalDashboard</Link>
-        <Link to='/ProfessionalDashboard' id='nav-link'>ProfessionalDashboard</Link>
+
+        <Link to="/PersonalDashboard" id="nav-link">
+          PersonalDashboard
+        </Link>
+
+        <Link to="/ProfessionalDashboard" id="nav-link">
+          ProfessionalDashboard
+        </Link>
       </nav>
 
-      {/* This renders child routes */}
-      <Outlet />
-    </div>
+      <Routes>
+
+        <Route path="/" element={<Home />} />
+
+        <Route
+          path="/PersonalDashboard"
+          element={<PersonalDashboard />}
+        />
+
+        <Route
+          path="/ProfessionalDashboard"
+          element={<ProfessionalDashboard />}
+        />
+
+      </Routes>
+
+    </BrowserRouter>
   )
-}
-
-// ✅ Router setup
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: '/PersonalDashboard',
-        element: <PersonalDashboard />
-      },
-      {
-        path: '/ProfessionalDashboard',
-        element: <ProfessionalDashboard />
-      }
-    ]
-  }
-])
-
-// ✅ Main App
-const App = () => {
-  return <RouterProvider router={router} />
 }
 
 export default App
